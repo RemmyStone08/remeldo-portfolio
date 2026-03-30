@@ -15,6 +15,7 @@ This section contains documented case studies of real issues I have worked on:
 
 - RAID to AHCI Conversion (Dell Inspiron 15)
 - 100% Disk Usage Diagnosis (HP 15 - Intel RST + SSD)
+- Packard Bell Laptop - Wi-Fi and Bluetooth Troubleshooting
 
 Each case includes:
 - Problem identification
