@@ -1,6 +1,6 @@
 # Remeldo Stone — IT Support & Troubleshooting Portfolio
 
-![Portfolio banner](assets/portfolio-banner.jpg)
+![Portfolio banner](ChatGPT%20Image%20Apr%201,%202026,%2004_34_54%20PM.png)
 
 Welcome to my portfolio repository.
 
