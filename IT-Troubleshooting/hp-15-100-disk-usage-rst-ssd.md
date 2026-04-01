@@ -1,92 +1,87 @@
-# 100% Disk Usage on HP 15 (RST + Budget SSD)
+# 100% Disk Usage on HP 15 (Intel RST + Budget SSD)
 
 ## Overview
-This case documents troubleshooting persistent 100% disk usage on an HP 15 laptop, even after a clean Windows installation.
+This case documents the troubleshooting of persistent 100% disk usage on an HP 15 laptop, even after a clean Windows installation.
 
 ## Problem
 The system consistently showed:
 - 100% disk usage in Task Manager
-- Low read/write speeds
-- System lag and freezing
+- Very low read and write speeds
+- Noticeable lag, freezing, and poor responsiveness
 
-This occurred even after reinstalling Windows and testing on another system.
+The same behavior remained even after reinstalling Windows and testing the SSD in another system.
+
+## Objective
+Determine whether the issue was caused by Windows, drivers, SSD health, BIOS restrictions, or a hardware compatibility limitation.
 
 ## Device
 - Model: HP 15-da2xxx series
 - Storage: Patriot P220 512GB SSD
-- Storage Mode: Intel RST (RAID, BIOS locked)
-- OS: Windows 10/11
-
-## Initial Symptoms
-- Disk usage stuck at 100%
-- Minimal data transfer (0–5 MB/s)
-- System responsiveness severely affected
+- Storage mode: Intel RST (RAID, BIOS locked)
+- Operating system: Windows 10/11
 
 ## Troubleshooting Process
-
-### 1. Verified Disk Usage
+### 1. Verified the symptom
 - Used Task Manager to confirm 100% active time
-- Identified low throughput despite high usage
+- Noted low throughput despite high usage
 
-### 2. Checked BIOS Configuration
-- Confirmed system locked to Intel RST mode
-- No AHCI option available
+### 2. Checked BIOS limitations
+- Confirmed the system was locked to Intel RST mode
+- Verified that no AHCI option was available
 
-### 3. Tested Clean OS Installation
-- Installed Windows on another system
-- Moved SSD back to HP laptop
-- Performance worsened due to driver mismatch
+### 3. Tested the operating system separately
+- Installed Windows on the SSD using another system
+- Reinstalled the SSD into the HP laptop
+- Observed that performance worsened because of platform and driver mismatch
 
-### 4. Verified SSD Health
-- Health: ~88%
-- Power-on time: ~71 days
-- No signs of failure
+### 4. Verified SSD condition
+- SSD health was approximately 88%
+- Power-on time was roughly 71 days
+- No direct signs of SSD failure were present
 
-### 5. Driver Investigation
-- Confirmed Intel RST controller in use
-- Attempted driver reset and reinstall
+### 5. Investigated the storage driver path
+- Confirmed the Intel RST controller was in use
+- Attempted driver reset and reinstall steps during testing
 
-### 6. System Optimization
-- Disabled SysMain (Superfetch)
+### 6. Applied temporary optimizations
+- Disabled SysMain
 - Disabled Windows Search
-- Reduced background processes
+- Reduced unnecessary background activity
 
 ## Findings
-
-- SSD was healthy but underperforming
-- Intel RST added overhead and latency
-- Budget SSD (DRAM-less) struggled under RST
-- Issue was not software-related
+- The SSD was functional but underperforming
+- Intel RST introduced extra overhead and latency
+- The budget SSD controller struggled under this storage setup
+- The issue was not primarily caused by Windows itself
 
 ## Root Cause
-Performance limitation caused by:
-- Intel RST storage mode (firmware-level restriction)
-- Low-end SSD controller (Patriot P220)
+The main limitation came from the combination of:
+- Intel RST storage mode locked at firmware level
+- A low-end DRAM-less SSD controller that performed poorly under that configuration
 
-## Solution
+## Resolution
+### Permanent recommendation
+Replace the SSD with a stronger SATA model better suited to the platform, such as:
+- Crucial MX500
+- Samsung 870 EVO
+- WD Blue SA510
 
-### Recommended (Permanent Fix)
-- Replace SSD with higher-quality model:
-  - Crucial MX500
-  - Samsung 870 EVO
-  - WD Blue SA510
-
-### Temporary Fix
+### Temporary mitigation
 - Disable SysMain
 - Disable Windows Search
-- Reduce background applications
+- Minimize background processes
 
 ## Result
-- System stabilized with optimizations
-- Root cause identified as hardware limitation
-- Upgrade recommended for full resolution
+- The system became more stable after optimization
+- The real bottleneck was identified correctly
+- A hardware upgrade path was recommended for full resolution
 
 ## Skills Demonstrated
 - Performance troubleshooting
 - Storage system analysis
 - BIOS limitation diagnosis
-- Differentiating hardware vs software issues
+- Hardware-versus-software fault isolation
 - Client communication and recommendation
 
-## Lesson Learned
-SSD health does not equal performance. Controller quality and system compatibility play a major role, especially in systems locked to Intel RST mode.
+## Key Lesson
+SSD health does not always reflect real-world performance. Controller quality and system compatibility matter, especially in systems locked to Intel RST mode.

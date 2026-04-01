@@ -1,56 +1,59 @@
 # Dell Inspiron 15 RAID to AHCI Conversion
 
 ## Overview
-This case documents the process of converting a Dell Inspiron 15 from RAID mode to AHCI mode in BIOS without causing Windows boot failure.
+This case documents the safe conversion of a Dell Inspiron 15 from RAID mode to AHCI mode without breaking the existing Windows installation.
 
 ## Problem
-The laptop was configured with RAID mode enabled in BIOS even though no RAID array was being used. This introduced unnecessary storage overhead and potential SSD performance limitations.
+The laptop was configured with RAID mode enabled in BIOS even though no RAID array was in use. This added unnecessary storage overhead and could limit SSD performance.
 
 ## Objective
-Switch the storage controller from RAID to AHCI safely while keeping the existing Windows installation bootable.
+Switch the storage controller from RAID to AHCI while keeping the system stable and bootable.
 
 ## Device
 - Model: Dell Inspiron 15
 - Storage: SATA SSD
-- Original BIOS Mode: RAID On
-- Target BIOS Mode: AHCI
+- Original BIOS mode: RAID On
+- Target BIOS mode: AHCI
 
 ## Risk
-Changing RAID to AHCI directly in BIOS can cause Windows to fail to boot with `INACCESSIBLE_BOOT_DEVICE`.
+Changing storage mode directly in BIOS can cause Windows to fail to boot with `INACCESSIBLE_BOOT_DEVICE` if the correct driver is not prepared first.
 
 ## Troubleshooting Process
-1. Open Command Prompt as Administrator.
-2. Enable Safe Mode boot:
+1. Opened Command Prompt as Administrator.
+2. Enabled Safe Mode boot:
    ```cmd
    bcdedit /set safeboot minimal
    ```
-3. Restart and enter BIOS using `F2`.
-4. Navigate to **SATA Operation**.
-5. Change **RAID On** to **AHCI**.
-6. Save and exit BIOS.
-7. Allow Windows to boot into Safe Mode.
-8. Open Command Prompt as Administrator again.
-9. Disable Safe Mode boot:
+3. Restarted and entered BIOS using `F2`.
+4. Navigated to **SATA Operation**.
+5. Changed **RAID On** to **AHCI**.
+6. Saved settings and exited BIOS.
+7. Allowed Windows to boot into Safe Mode.
+8. Opened Command Prompt as Administrator again.
+9. Disabled Safe Mode boot:
    ```cmd
    bcdedit /deletevalue safeboot
    ```
-10. Restart the system normally.
+10. Restarted the system normally.
+
+## Root Cause
+The issue was not a hardware fault. The system was simply configured with RAID mode enabled by default, despite not using a RAID array.
+
+## Resolution
+Used the Safe Mode method to prepare Windows for the storage driver change before switching the BIOS setting from RAID to AHCI.
 
 ## Result
-Windows successfully booted in AHCI mode without requiring an operating system reinstall.
-
-## Outcome
-- Storage controller switched successfully
-- System remained stable and bootable
-- Reduced dependency on the RAID storage layer
-- Improved readiness for direct AHCI operation
+- Windows booted successfully after the change
+- The system remained stable and usable
+- The storage controller was switched without requiring an OS reinstall
+- The laptop was better aligned for direct AHCI operation
 
 ## Skills Demonstrated
 - BIOS configuration
 - Windows boot troubleshooting
 - Storage controller migration
 - Safe Mode recovery workflow
-- Preventing boot failure during system changes
+- Risk prevention during system changes
 
-## Lesson Learned
-Many consumer laptops ship with RAID enabled by default even when no actual RAID array is being used. Safely switching to AHCI requires preparing Windows first so the correct storage driver loads during the next boot.
+## Key Lesson
+Many consumer laptops ship with RAID enabled by default even when no actual RAID array is being used. Storage-mode changes should be handled carefully to avoid unnecessary boot failures.
