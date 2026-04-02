@@ -2,133 +2,102 @@
 
 ## 📌 Overview
 
-This case documents the diagnosis and workaround of a **graphics failure** on a **MacBook Pro (15-inch, Mid 2012)**.
-
-The system powered on but failed to display any image due to a faulty **dedicated GPU (dGPU)**.
+Diagnosed and resolved a **no-display boot issue** on a MacBook Pro (15-inch, Mid 2012) caused by a failing dedicated GPU.
 
 ---
 
-## 💻 Device Specifications
+## 💻 Device
 
 * **Model:** MacBook Pro (15-inch, Mid 2012)
-* **Integrated GPU:** Intel HD Graphics 4000
-* **Dedicated GPU:** NVIDIA GeForce GT 650M
+* **iGPU:** Intel HD Graphics 4000
+* **dGPU:** NVIDIA GeForce GT 650M
 
 ---
 
-## ⚠️ Reported Symptoms
-
-The device presented the following behavior:
+## ⚠️ Symptoms
 
 * Black screen on boot
-* Display backlight active
-* Caps Lock key responsive
-* No output on external display
+* Backlight active
+* Caps Lock responsive
+* No external display output
 
 ---
 
 ## 🧠 Diagnosis
 
-This model uses **automatic GPU switching** between:
+The system uses **automatic GPU switching**.
 
-* Integrated GPU (Intel HD 4000)
-* Dedicated GPU (NVIDIA GT650M)
-
-### Root Cause
-
-The **NVIDIA GT650M** had failed.
-
-During boot, the system attempts to initialize the dedicated GPU, which results in:
-
-* No video output
-* System appearing non-functional despite being powered on
+Failure of the **GT650M** causes the system to attempt initialization of a non-functional GPU, resulting in no video output.
 
 ---
 
-## 🛠️ Resolution
+## 🛠️ Fix — Force Integrated GPU
 
-### ✅ Objective
+### Method: macOS Recovery
 
-Force the system to use the **integrated GPU only**
-
----
-
-### Method 1: macOS Recovery Mode
-
-1. Power on the device and hold:
-
+1. Boot into recovery
    `Command + R`
 
-2. Navigate to:
-
+2. Open Terminal
    `Utilities → Terminal`
 
-3. Run the following command:
+3. Run:
 
-   ```bash
-   nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
-   ```
+```bash
+nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
+```
 
-4. Reboot the system:
+4. Reboot:
 
-   ```bash
-   reboot
-   ```
+```bash
+reboot
+```
 
 ---
 
-### Method 2: Single User Mode (No Display Fallback)
+### Fallback: Single User Mode
 
-1. Power on and hold:
-
+1. Boot
    `Command + S`
 
-2. Execute:
+2. Run:
 
-   ```bash
-   nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
-   reboot
-   ```
-
----
-
-## 🔁 Preventing GPU Switching
-
-To avoid reverting back to the faulty GPU:
-
-* Install **gfxCardStatus**
-* Set mode to:
-
-  `Integrated Only`
+```bash
+nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
+reboot
+```
 
 ---
 
-## ⚠️ Limitations
+## 🔁 Prevention
 
-* This is a **software workaround**, not a hardware repair
-* Resetting NVRAM/PRAM may undo the fix
-* Dedicated GPU remains unusable
-* Reduced graphics performance in GPU-intensive applications
+Use **gfxCardStatus** → `Integrated Only`
 
 ---
 
-## 🔧 Permanent Solutions
+## ⚠️ Notes
 
-* Disable dGPU power rail (hardware-level repair)
-* Apply OpenCore patch to block dGPU
-* Replace motherboard (generally not cost-effective)
+* Workaround only (hardware fault remains)
+* PRAM/NVRAM reset may undo fix
+* Reduced GPU performance
 
 ---
 
+## 🔧 Permanent Options
 
-## 🧾 Summary
+* Disable dGPU power rail
+* OpenCore GPU block
+* Logic board replacement
 
-A failing dedicated GPU prevented video output on boot.
-By forcing the system to use the integrated GPU via NVRAM, full system usability was restored.
+---
+
+## 🧾 Result
+
+System successfully booted using integrated graphics, restoring full usability.
 
 ---
 
 ## 👤 Author
 
 **Remmy**
-IT Support | Hardware Troubleshooting | Aspiring Blue Team Analyst
+IT Support | Hardware Troubleshooting | Blue Team Path
