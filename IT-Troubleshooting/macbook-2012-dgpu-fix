@@ -1,7 +1,6 @@
 # MacBook 2012 dGPU Fix (GT650M Failure)
 
 ## 📌 Overview
-
 This project documents the diagnosis and workaround for a common GPU failure affecting the **MacBook Pro (15-inch, Mid 2012)**.
 
 The issue is caused by the failure of the dedicated NVIDIA GPU, which prevents the system from displaying video during boot.
@@ -9,7 +8,6 @@ The issue is caused by the failure of the dedicated NVIDIA GPU, which prevents t
 ---
 
 ## 💻 Affected Hardware
-
 * Model: MacBook Pro (15-inch, Mid 2012)
 * Integrated GPU: Intel HD Graphics 4000
 * Dedicated GPU: NVIDIA GeForce GT 650M
@@ -17,9 +15,7 @@ The issue is caused by the failure of the dedicated NVIDIA GPU, which prevents t
 ---
 
 ## ⚠️ Problem Symptoms
-
 The device powers on but shows:
-
 * Black screen
 * Backlight is ON
 * Caps Lock responds
@@ -28,24 +24,19 @@ The device powers on but shows:
 ---
 
 ## 🧠 Root Cause
-
 This model uses **automatic GPU switching** between integrated and dedicated graphics.
-
 When the **NVIDIA GT650M fails**, the system may attempt to initialize it during boot, resulting in:
-
 * No video output
 * System appearing “dead” despite actually running
 
 ---
 
 ## 🛠️ Solution (Force Integrated GPU)
-
 The fix involves forcing the system to use the **integrated GPU only** via NVRAM.
 
 ---
 
 ### Method 1: macOS Recovery
-
 1. Power on the Mac and hold:
 
    Command + R
@@ -110,19 +101,7 @@ This prevents the system from switching back to the faulty GPU.
 
 ---
 
-## 📸 Suggested Additions
-
-To improve this project:
-
-* Add images of the device
-* Include before/after results
-* Document testing process
-* Add logs or terminal outputs
-
----
-
 ## 🧾 Summary
-
 This fix restores usability to a MacBook Pro with a failed dedicated GPU by forcing the system to rely entirely on the integrated graphics.
 
 ---
