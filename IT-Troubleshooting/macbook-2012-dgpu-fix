@@ -1,0 +1,133 @@
+# MacBook 2012 dGPU Fix (GT650M Failure)
+
+## 📌 Overview
+
+This project documents the diagnosis and workaround for a common GPU failure affecting the **MacBook Pro (15-inch, Mid 2012)**.
+
+The issue is caused by the failure of the dedicated NVIDIA GPU, which prevents the system from displaying video during boot.
+
+---
+
+## 💻 Affected Hardware
+
+* Model: MacBook Pro (15-inch, Mid 2012)
+* Integrated GPU: Intel HD Graphics 4000
+* Dedicated GPU: NVIDIA GeForce GT 650M
+
+---
+
+## ⚠️ Problem Symptoms
+
+The device powers on but shows:
+
+* Black screen
+* Backlight is ON
+* Caps Lock responds
+* No display on external monitor (in most cases)
+
+---
+
+## 🧠 Root Cause
+
+This model uses **automatic GPU switching** between integrated and dedicated graphics.
+
+When the **NVIDIA GT650M fails**, the system may attempt to initialize it during boot, resulting in:
+
+* No video output
+* System appearing “dead” despite actually running
+
+---
+
+## 🛠️ Solution (Force Integrated GPU)
+
+The fix involves forcing the system to use the **integrated GPU only** via NVRAM.
+
+---
+
+### Method 1: macOS Recovery
+
+1. Power on the Mac and hold:
+
+   Command + R
+
+2. Open:
+
+   Utilities → Terminal
+
+3. Run:
+
+   ```bash
+   nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
+   ```
+
+4. Reboot:
+
+   ```bash
+   reboot
+   ```
+
+---
+
+### Method 2: Single User Mode (if no display)
+
+1. Power on and hold:
+
+   Command + S
+
+2. Enter:
+
+   ```bash
+   nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
+   reboot
+   ```
+
+---
+
+## 🔁 Optional: Prevent GPU Switching
+
+Install a tool like **gfxCardStatus** and set:
+
+Integrated Only
+
+This prevents the system from switching back to the faulty GPU.
+
+---
+
+## ⚠️ Limitations
+
+* This is a **workaround**, not a hardware repair
+* Resetting NVRAM/PRAM may revert the fix
+* The dedicated GPU remains faulty
+* Some apps requiring high GPU performance may not function optimally
+
+---
+
+## 🔧 Permanent Fix Options
+
+* Disable dGPU power rail (hardware-level repair)
+* Use OpenCore patching to block dGPU permanently
+* Replace motherboard (not cost-effective in most cases)
+
+---
+
+## 📸 Suggested Additions
+
+To improve this project:
+
+* Add images of the device
+* Include before/after results
+* Document testing process
+* Add logs or terminal outputs
+
+---
+
+## 🧾 Summary
+
+This fix restores usability to a MacBook Pro with a failed dedicated GPU by forcing the system to rely entirely on the integrated graphics.
+
+---
+
+## 👤 Author
+
+Remmy
+IT Support | Hardware Troubleshooting | Aspiring Blue Team Analyst
