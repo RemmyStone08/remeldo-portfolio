@@ -37,7 +37,7 @@ It demonstrates the ability to:
 
 ---
 
-###🧾 Ticket #001 – Laptop Not Powering On
+### 🧾 Ticket #001 – Laptop Not Powering On
 
 Status: Closed
 Priority: High
@@ -59,7 +59,7 @@ Diagnosed motherboard failure. Recommended replacement.
 
 ---
 
-###🌐 Ticket #002 – WiFi Not Detecting Networks
+### 🌐 Ticket #002 – WiFi Not Detecting Networks
 
 Status: Resolved
 Priority: Medium
@@ -81,7 +81,7 @@ Enabled wireless adapter in BIOS. Connectivity restored.
 
 ---
 
-###🖥️ Ticket #003 – System Running Extremely Slow
+### 🖥️ Ticket #003 – System Running Extremely Slow
 
 Status: Closed
 Priority: Medium
@@ -103,7 +103,7 @@ Disabled unnecessary startup apps and optimized system.
 
 --- 
 
-###🔊 Ticket #004 – No Sound Output
+### 🔊 Ticket #004 – No Sound Output
 
 Status: Closed
 Priority: Low
@@ -125,7 +125,7 @@ Reinstalled correct audio driver. Audio restored.
 
 ---
 
-###🔌 Ticket #005 – Laptop Not Charging
+### 🔌 Ticket #005 – Laptop Not Charging
 
 Status: Closed
 Priority: High
