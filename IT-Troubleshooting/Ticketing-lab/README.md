@@ -1,6 +1,6 @@
 # IT Help Desk Ticketing Simulation
 
-===
+---
 
 ## Project Overview
 
