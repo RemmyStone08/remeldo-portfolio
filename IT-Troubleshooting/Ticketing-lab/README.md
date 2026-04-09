@@ -19,7 +19,7 @@ It demonstrates the ability to:
 
 - Ticketing System: Simulated (based on real POS/ticket workflow)
 - Role: IT Support Technician
-- Devices: Laptops, desktops, peripherals
+- Devices: Laptops, desktops, peripherals(Printers)
 
 ---
 
