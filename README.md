@@ -2,7 +2,7 @@
 
 ![Portfolio banner](assets/banner.png)
 
-Welcome to my portfolio repository.
+# Welcome to my portfolio repository.
 
 This repo highlights practical, hands-on IT work with a focus on troubleshooting, structured diagnostics, and clear problem solving. It is designed to show how I approach real technical issues from first symptom to final recommendation.
 
