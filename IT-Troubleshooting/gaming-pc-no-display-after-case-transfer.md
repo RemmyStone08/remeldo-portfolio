@@ -1,89 +1,55 @@
-# Gaming PC No Display After Case Transfer
+# Gaming PC — No Display After Case Transfer
 
-## Overview
-This case documents the diagnosis of a gaming PC that stopped displaying video immediately after a case transfer.
+**Device:** Custom built gaming PC
+**Symptom:** System would not boot following a case transfer
+**Outcome:** Short circuit identified in front panel USB 3.0 cable — system restored to full operation
 
-## Problem
-The system powered on and the fans spun normally, but there was no POST screen and no display output. The PC had been working before the rebuild, which strongly suggested the fault had been introduced during reassembly.
+---
 
-## Objective
-Quickly narrow the fault to the most likely area by testing power delivery, RAM, GPU, CPU contact, motherboard behavior, and possible assembly-related issues.
+## Client Report
 
-## Device
-- Type: Custom gaming desktop
-- CPU: Intel Core i9-14900K
-- Graphics path used for testing: Dedicated GPU and integrated graphics
-- Scenario: No-display/no-POST condition after case transfer
+The client brought in a custom gaming PC that would not boot following a case transfer. The transfer had been described as standard with no known issues during the process.
 
-## Troubleshooting Process
-### 1. Verified power and rebuild connections
-- Checked the 24-pin motherboard power connection
-- Checked the 8-pin CPU power connection
-- Confirmed the correct CPU power cable was in use
-- Rechecked major internal connections after the transfer
+---
 
-### 2. Removed the GPU as a primary variable
-- Removed the dedicated GPU
-- Switched testing to motherboard display output
-- Used the CPU’s integrated graphics to reduce variables
+## Initial Diagnosis
 
-### 3. Investigated memory-related causes
+On inspection the system showed no signs of life — no display output, no POST. All components had been transferred from the original case and were seated correctly. The build itself appeared normal with no obvious signs of damage or misconnection.
+
+---
+
+## Process
+
+I worked through the standard no boot checklist methodically:
+
+- Verified power connections to the motherboard, CPU, and GPU
 - Reseated the RAM
-- Planned single-stick testing in the primary DIMM slot
-- Treated memory training and RAM initialization as possible no-POST causes
+- Checked GPU seating and display cable connections
+- Verified front panel header connections
 
-### 4. Checked CPU seating and socket condition
-- Inspected CPU seating
-- Examined the LGA1700 socket for visible pin damage
-- Found no obvious bent pins or visible socket defects
+With no obvious fault found through visual inspection I began disconnecting non-essential components to isolate the cause. When I disconnected the USB 3.0 front panel cable from the motherboard header the system booted immediately.
 
-### 5. Ruled out case shorting
-- Removed the motherboard from the case
-- Performed a minimum-hardware bench test outside the chassis
-- Confirmed the system still failed to POST
-
-### 6. Continued board-level narrowing
-- Identified the **JBAT1** header for CMOS clearing
-- Reviewed the board layout for further diagnostic points
-- Narrowed the remaining fault area to motherboard initialization, CPU contact or cooler pressure, or RAM initialization
-
-### 7. Managed client communication
-- Kept the client informed during testing
-- Avoided making premature claims before enough evidence was gathered
-- Balanced technical diagnosis with the client’s time pressure
-
-## Findings
-- Basic power-up was present
-- The dedicated GPU was unlikely to be the sole cause
-- Case shorting was ruled out
-- No obvious socket damage was visible
-- The fault remained within core system initialization
+---
 
 ## Root Cause
-At the end of the diagnostic stage, the issue had not yet been reduced to a single confirmed failed component. The strongest remaining suspects were:
-1. Motherboard-side initialization failure
-2. CPU contact or cooler pressure issue
-3. RAM initialization problem
 
-## Resolution
-This case focused on structured fault isolation rather than an immediate final repair. The main outcome was narrowing the fault professionally and accurately without guessing.
+The USB 3.0 cable running from the front IO ports of the new case had an internal short. When connected to the motherboard header it was pulling enough current to prevent the system from completing POST. The fault was not visible externally — the cable appeared undamaged.
 
-## Result
-- Several common rebuild-related causes were ruled out
-- The fault area was narrowed significantly
-- The client received a clear and honest diagnostic position
-- The troubleshooting process remained methodical under deadline pressure
+---
 
-## Skills Demonstrated
-- Desktop hardware troubleshooting
-- No-display / no-POST diagnosis
-- Bench testing outside the case
-- GPU elimination testing
-- Integrated graphics fallback testing
-- CPU and socket inspection
-- CMOS reset point identification
-- Logical fault isolation
-- Client communication under pressure
+## Outcome
 
-## Key Lesson
-When a PC fails immediately after a rebuild or case transfer, the fault is not always a dead component. Assembly-related issues should be ruled out systematically before declaring a motherboard or CPU defective.
+System booted successfully with the faulty USB 3.0 front panel cable disconnected. The client was advised of the fault and the cable was replaced. Full functionality including front panel USB ports was restored after the replacement.
+
+---
+
+## Key Learnings
+
+- Case accessories including front panel cables should be treated as potential fault points, not just the core components.
+- A short in a front panel USB 3.0 cable can prevent a system from booting entirely — it is not always an obvious culprit in a no POST diagnosis.
+- When a build appears correct but won't boot, systematically disconnecting non-essential peripherals and headers is an effective isolation technique.
+- Case transfers introduce new variables even when the process seems straightforward. Always test with minimal connections before assuming a component fault.
+
+---
+
+*Documented by Remeldo Stone — IT Technician, Matrix Warehouse*
