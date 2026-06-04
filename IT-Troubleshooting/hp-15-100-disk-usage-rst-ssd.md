@@ -1,7 +1,9 @@
 # 100% Disk Usage Diagnosis — HP 15 (Intel RST + SSD)
 
 **Device:** HP 15 laptop
+
 **Symptom:** Constant 100% disk usage, severely degraded system performance
+
 **Outcome:** Root cause identified and documented — hardware limitation prevented full resolution
 
 ---
