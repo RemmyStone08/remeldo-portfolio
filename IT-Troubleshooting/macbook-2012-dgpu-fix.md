@@ -1,103 +1,111 @@
-# 🛠️ MacBook Pro 2012 dGPU Failure Fix
+# MacBook Pro 2012 — Dedicated GPU Failure
 
-## 📌 Overview
-
-Diagnosed and resolved a **no-display boot issue** on a MacBook Pro (15-inch, Mid 2012) caused by a failing dedicated GPU.
-
----
-
-## 💻 Device
-
-* **Model:** MacBook Pro (15-inch, Mid 2012)
-* **iGPU:** Intel HD Graphics 4000
-* **dGPU:** NVIDIA GeForce GT 650M
+**Device:** MacBook Pro 15-inch Mid 2012
+**Symptom:** Black screen during boot despite signs that the system was still running
+**Outcome:** Restored functionality by forcing the system to use integrated graphics
 
 ---
 
-## ⚠️ Symptoms
+## Client Report
 
-* Black screen on boot
-* Backlight active
-* Caps Lock responsive
-* No external display output
+The client reported that the MacBook would power on but never display an image. The screen remained black throughout startup, making the machine appear completely dead.
 
 ---
 
-## 🧠 Diagnosis
+## Initial Assessment
 
-The system uses **automatic GPU switching**.
+During testing I noticed several indicators that the system was still functioning:
 
-Failure of the **GT650M** causes the system to attempt initialization of a non-functional GPU, resulting in no video output.
+- Keyboard backlight activated
+- Startup sounds were present
+- Caps Lock responded normally
+- Cooling fans behaved as expected
+
+These signs suggested that the operating system was still loading, even though no image was being displayed.
 
 ---
 
-## 🛠️ Fix — Force Integrated GPU
+## Device Information
 
-### Method: macOS Recovery
+- Model: MacBook Pro 15-inch Mid 2012
+- Integrated Graphics: Intel HD Graphics 4000
+- Dedicated Graphics: NVIDIA GeForce GT 650M
 
-1. Boot into recovery
-   `Command + R`
+This model is known for graphics-related failures because it automatically switches between integrated and dedicated graphics depending on workload.
 
-2. Open Terminal
-   `Utilities → Terminal`
+---
 
-3. Run:
+## Investigation
+
+I initially considered several possibilities:
+
+- Failed LCD panel
+- Faulty display cable
+- Corrupt operating system
+- Logic board fault
+- Graphics processor failure
+
+Testing revealed that the machine remained operational despite having no display output. This pointed away from a complete motherboard failure and toward the graphics subsystem.
+
+Further research into the model revealed a common fault involving the NVIDIA GT 650M dedicated graphics processor.
+
+---
+
+## Root Cause
+
+The MacBook was attempting to initialise the dedicated NVIDIA GPU during startup.
+
+Because the GPU had failed, the system could not successfully complete graphics initialisation, resulting in a black screen even though the remainder of the computer continued operating normally.
+
+---
+
+## Resolution
+
+To restore functionality, I forced the system to use the Intel HD 4000 integrated graphics processor instead of the failed NVIDIA GPU.
+
+This was accomplished through macOS recovery tools and NVRAM configuration changes that prevented the dedicated GPU from being selected during boot.
+
+### Recovery Command Used
 
 ```bash
 nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
-```
-
-4. Reboot:
-
-```bash
 reboot
 ```
 
 ---
 
-### Fallback: Single User Mode
+## Result
 
-1. Boot
-   `Command + S`
-
-2. Run:
-
-```bash
-nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00
-reboot
-```
+- Display functionality restored
+- System booted successfully
+- Client regained access to files and applications
+- No replacement parts required
 
 ---
 
-## 🔁 Prevention
+## Limitations
 
-Use **gfxCardStatus** → `Integrated Only`
+This repair is a workaround rather than a permanent hardware repair.
 
----
-
-## ⚠️ Notes
-
-* Workaround only (hardware fault remains)
-* PRAM/NVRAM reset may undo fix
-* Reduced GPU performance
+The failed dedicated GPU remains present on the logic board and certain firmware resets may cause the issue to reappear.
 
 ---
 
-## 🔧 Permanent Options
+## Permanent Repair Options
 
-* Disable dGPU power rail
-* OpenCore GPU block
-* Logic board replacement
-
----
-
-## 🧾 Result
-
-System successfully booted using integrated graphics, restoring full usability.
+- Disable the dedicated GPU power rail
+- Implement an OpenCore-based GPU block
+- Replace the logic board
 
 ---
 
-## 👤 Author
+## Key Learnings
 
-**Remmy**
-IT Support | Hardware Troubleshooting | Blue Team Path
+- A black screen does not always indicate a dead computer.
+- Observing system behaviour can provide valuable diagnostic clues.
+- Common model-specific faults should always be considered during troubleshooting.
+- Understanding how integrated and dedicated graphics interact can significantly reduce diagnostic time.
+
+---
+
+*Documented by Remeldo Stone — IT Technician, Matrix Warehouse*
