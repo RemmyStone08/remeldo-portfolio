@@ -1,7 +1,9 @@
 # Packard Bell Laptop — Soldered NIC BIOS Fault
 
 **Device:** Packard Bell budget laptop (Celeron processor)
+
 **Symptom:** No internet connectivity following Windows reinstallation by a previous technician
+
 **Outcome:** Full network connectivity restored — no hardware replacement required
 
 ---
