@@ -54,10 +54,19 @@ real cases I have worked on as a practising IT Technician.
 
 Current documented cases:
 
-- [Packard Bell Laptop — Soldered NIC BIOS Fault](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/packard-bell-wifi-bluetooth.md)
+- [Packard Bell Laptop — Soldered NIC BIOS Fault](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/packard-bell-soldered-nic-bios-fault.md)
 - [RAID to AHCI Conversion (Dell Inspiron 15)](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/dell-inspiron-15-raid-to-ahci.md)
 - [100% Disk Usage Diagnosis (HP 15, Intel RST + SSD)](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/hp-15-100-disk-usage-rst-ssd.md)
 - [Gaming PC — No Display After Case Transfer](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/gaming-pc-no-display-after-case-transfer.md)
+- [MacBook 2012 — Dedicated GPU Failure](https://github.com/RemmyStone08/remeldo-portfolio/blob/main/IT-Troubleshooting/macbook-2012-dgpu-fix.md)
+
+### IT Help Desk Ticketing Simulation
+
+Path: `Ticketing-lab/`
+
+A simulated IT help desk environment based on real-world repair 
+ticket experience, demonstrating ticket lifecycle management from 
+creation through to resolution and documentation.
 
 ---
 
@@ -83,6 +92,7 @@ Current documented cases:
 - Performance analysis and root cause identification
 - Client-facing communication and expectation management
 - Technical documentation
+- Ticket lifecycle management
 
 ---
 
