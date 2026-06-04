@@ -1,7 +1,9 @@
 # MacBook Pro 2012 — Dedicated GPU Failure
 
 **Device:** MacBook Pro 15-inch Mid 2012
+
 **Symptom:** Black screen during boot despite signs that the system was still running
+
 **Outcome:** Restored functionality by forcing the system to use integrated graphics
 
 ---
