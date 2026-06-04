@@ -1,7 +1,9 @@
 # RAID to AHCI Conversion — Dell Inspiron 15
 
 **Device:** Dell Inspiron 15
+
 **Symptom:** Poor SSD performance following HDD to SSD upgrade performed by a previous technician
+
 **Outcome:** Full AHCI mode enabled — SSD performing as intended
 
 ---
