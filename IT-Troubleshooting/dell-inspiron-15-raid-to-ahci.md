@@ -1,59 +1,58 @@
-# Dell Inspiron 15 RAID to AHCI Conversion
+# RAID to AHCI Conversion — Dell Inspiron 15
 
-## Overview
-This case documents the safe conversion of a Dell Inspiron 15 from RAID mode to AHCI mode without breaking the existing Windows installation.
+**Device:** Dell Inspiron 15
+**Symptom:** Poor SSD performance following HDD to SSD upgrade performed by a previous technician
+**Outcome:** Full AHCI mode enabled — SSD performing as intended
 
-## Problem
-The laptop was configured with RAID mode enabled in BIOS even though no RAID array was in use. This added unnecessary storage overhead and could limit SSD performance.
+---
 
-## Objective
-Switch the storage controller from RAID to AHCI while keeping the system stable and bootable.
+## Client Report
 
-## Device
-- Model: Dell Inspiron 15
-- Storage: SATA SSD
-- Original BIOS mode: RAID On
-- Target BIOS mode: AHCI
+The client returned to the store after a previous visit where another technician had upgraded his storage from an HDD to an SSD. Despite the upgrade, the system was not performing as expected.
 
-## Risk
-Changing storage mode directly in BIOS can cause Windows to fail to boot with `INACCESSIBLE_BOOT_DEVICE` if the correct driver is not prepared first.
+---
 
-## Troubleshooting Process
-1. Opened Command Prompt as Administrator.
-2. Enabled Safe Mode boot:
-   ```cmd
-   bcdedit /set safeboot minimal
-   ```
-3. Restarted and entered BIOS using `F2`.
-4. Navigated to **SATA Operation**.
-5. Changed **RAID On** to **AHCI**.
-6. Saved settings and exited BIOS.
-7. Allowed Windows to boot into Safe Mode.
-8. Opened Command Prompt as Administrator again.
-9. Disabled Safe Mode boot:
-   ```cmd
-   bcdedit /deletevalue safeboot
-   ```
-10. Restarted the system normally.
+## Observation
+
+On inspection I identified that the system was still configured in RAID mode in the BIOS — a default configuration that appears on certain laptops even when no RAID array is present. This is a known issue on some Dell Inspiron models where the factory BIOS defaults to RAID rather than AHCI regardless of the storage configuration.
+
+The problem with this is that RAID mode places demands on the storage device that many consumer SSDs are not designed to handle. The OS effectively requests full RAID-level usage from a drive that isn't built for it, resulting in degraded performance and in some cases instability.
+
+---
+
+## Process
+
+Switching directly from RAID to AHCI in the BIOS without preparation causes Windows to fail to boot — the OS loses access to the storage controller. The correct process requires preparation before the BIOS change is made.
+
+**Steps taken:**
+
+1. Booted the system into Safe Mode
+2. Removed the RAID drivers from within Safe Mode to allow Windows to fall back to basic storage drivers
+3. Rebooted and entered the BIOS
+4. Changed the storage configuration from RAID to AHCI
+5. Booted back into Windows — the OS detected the AHCI controller correctly and loaded the appropriate drivers automatically
+
+---
 
 ## Root Cause
-The issue was not a hardware fault. The system was simply configured with RAID mode enabled by default, despite not using a RAID array.
 
-## Resolution
-Used the Safe Mode method to prepare Windows for the storage driver change before switching the BIOS setting from RAID to AHCI.
+The system was left in RAID mode following the original SSD installation. The previous technician completed the hardware swap without verifying or correcting the BIOS storage configuration, leaving the SSD running in an unsupported mode.
 
-## Result
-- Windows booted successfully after the change
-- The system remained stable and usable
-- The storage controller was switched without requiring an OS reinstall
-- The laptop was better aligned for direct AHCI operation
+---
 
-## Skills Demonstrated
-- BIOS configuration
-- Windows boot troubleshooting
-- Storage controller migration
-- Safe Mode recovery workflow
-- Risk prevention during system changes
+## Outcome
 
-## Key Lesson
-Many consumer laptops ship with RAID enabled by default even when no actual RAID array is being used. Storage-mode changes should be handled carefully to avoid unnecessary boot failures.
+AHCI mode successfully enabled. SSD performance restored to expected levels. No data loss occurred during the conversion process.
+
+---
+
+## Key Learnings
+
+- Always verify BIOS storage configuration after an SSD upgrade, not just the hardware installation itself.
+- Some Dell Inspiron models default to RAID in the BIOS even without a RAID array — this is easy to miss if you're not looking for it.
+- The Safe Mode driver removal step is critical. Attempting to switch directly from RAID to AHCI without it will result in a non-booting system.
+- Consumer SSDs are not designed for RAID workloads. Leaving a system in this configuration causes unnecessary wear and performance degradation on the drive.
+
+---
+
+*Documented by Remeldo Stone — IT Technician, Matrix Warehouse*
